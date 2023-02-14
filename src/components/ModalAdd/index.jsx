@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { addUser } from '../../assets/crud'
 import { validateCPF } from '../../assets/validate'
+import Input from '../Input'
 
 const ModalAdd = ({ show, onClose, get, users }) => {
   const [nome, setNome] = useState('')
@@ -25,42 +26,19 @@ const ModalAdd = ({ show, onClose, get, users }) => {
                 Adicionar novo usuário
               </h3>
               <form className="space-y-6">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Nome
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="Nome Usuário"
-                    value={nome}
-                    onChange={(e) => setNome(e.target.value)}
-                    required
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="cpf"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    CPF
-                  </label>
-                  <input
-                    type="text"
-                    name="cpf"
-                    id="cpf"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="000.000.000-00"
-                    value={cpf}
-                    onChange={(e) => setCpf(e.target.value)}
-                    required
-                  />
-                </div>
+                <Input
+                  value={nome}
+                  set={setNome}
+                  id="nome"
+                  placeholder="Digite o nome"
+                />
+
+                <Input
+                  value={cpf}
+                  set={setCpf}
+                  id="cpf"
+                  placeholder="Digite o cpf"
+                />
 
                 <button
                   data-modal-toggle="popup-modal"

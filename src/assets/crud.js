@@ -26,7 +26,7 @@ export const addUser = (set, nome, cpf, users) => {
 
 export const editUser = (id, set, nome, cpf, users) => {
   api
-    .put(`usuarios/${id}`, {
+    .put(`/usuarios/${id}`, {
       nome,
       cpf,
     })
@@ -41,7 +41,7 @@ export const editUser = (id, set, nome, cpf, users) => {
 
 export const deleteUser = (set, id, users) => {
   // eslint-disable-next-line no-restricted-globals
-  if (confirm('Deseja realmente excluir este item?')) {
+  if (confirm(`Deseja realmente excluir o usuário ${id}?`)) {
     api
       .delete(`/usuarios/${id}`)
       .then(() => {

@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
-import { deleteUser, getUser } from './assets/crud'
+import { getUser } from './assets/crud'
 import Header from './components/Header'
+import LineTable from './components/LineTable'
 import ModalAdd from './components/ModalAdd'
-import ModalEdit from './components/ModalEdit'
 
 function App() {
   const [users, setUsers] = useState()
   const [showAdd, setShowAdd] = useState(false)
-  const [showEdit, setShowEdit] = useState(false)
 
   useEffect(() => {
     getUser(setUsers)
@@ -52,41 +51,14 @@ function App() {
               </thead>
               <tbody>
                 {users.map((user, index) => (
-                  <tr className="bg-white border-b" key={index}>
-                    <td className="px-6 py-4 whitespace-nowrap text-md font-medium text-gray-900">
-                      {user.nome}
-                    </td>
-                    <td className="text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      {user.cpf}
-                    </td>
-                    <td className="text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      <button
-                        type="button"
-                        className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2"
-                        onClick={
-                          () => setShowEdit(true)
-                          // editUser(user.id, setUsers, nome, cpf, users)
-                        }
-                      >
-                        Editar
-                      </button>
-                      <button
-                        className="text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2"
-                        onClick={() => deleteUser(setUsers, user.id, users)}
-                      >
-                        Deletar
-                      </button>
-                    </td>
-                    <ModalEdit
-                      get={setUsers}
-                      show={showEdit}
-                      onClose={() => setShowEdit(false)}
-                      users={users}
-                      id={user.id}
-                      nomeInicial={user.nome}
-                      cpfInicial={user.cpf}
-                    />
-                  </tr>
+                  <LineTable
+                    key={index}
+                    id={user.id}
+                    nome={user.nome}
+                    cpf={user.cpf}
+                    setUsers={setUsers}
+                    users={users}
+                  />
                 ))}
               </tbody>
             </table>
@@ -94,7 +66,7 @@ function App() {
         </div>
       </div>
       <ModalAdd
-        get={setUsers}
+        refresh={setUsers}
         show={showAdd}
         onClose={() => setShowAdd(false)}
         users={users}

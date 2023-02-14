@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { editUser } from '../../assets/crud'
+import { validateCPF } from '../../assets/validate'
+import Input from '../Input'
 
 const ModalEdit = ({
   show,
   onClose,
-  get,
+  refresh,
   users,
   id,
   nomeInicial,
@@ -12,9 +14,21 @@ const ModalEdit = ({
 }) => {
   const [nome, setNome] = useState(nomeInicial)
   const [cpf, setCpf] = useState(cpfInicial)
+  const [isValidCpf, setIsValidCpf] = useState(null)
 
   if (!show) {
     return null
+  }
+
+  const edit = () => {
+    if (validateCPF(cpf, setIsValidCpf, isValidCpf) === true) {
+      editUser(id, refresh, nome, cpf, users)
+      setNome('')
+      setCpf('')
+      onClose()
+    } else {
+      console.log('Digite um cpf válido')
+    }
   }
 
   return (
@@ -31,52 +45,24 @@ const ModalEdit = ({
                 Editar usuário: {nomeInicial}
               </h3>
               <form className="space-y-6">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Nome
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="Nome Usuário"
-                    value={nome}
-                    onChange={(e) => setNome(e.target.value)}
-                    required
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="cpf"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    CPF
-                  </label>
-                  <input
-                    type="text"
-                    name="cpf"
-                    id="cpf"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="000.000.000-00"
-                    value={cpf}
-                    onChange={(e) => setCpf(e.target.value)}
-                    required
-                  />
-                </div>
+                <Input
+                  value={nome}
+                  set={setNome}
+                  id="nome"
+                  placeholder="Digite o novo nome"
+                />
+
+                <Input
+                  value={cpf}
+                  set={setCpf}
+                  id="cpf"
+                  placeholder="Digite o novo cpf"
+                />
 
                 <button
                   data-modal-toggle="popup-modal"
                   type="button"
-                  onClick={() => {
-                    editUser(id, get, nome, cpf, users)
-                    setNome('')
-                    setCpf('')
-                    onClose()
-                  }}
+                  onClick={edit}
                   className="w-full text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >
                   Editar usuário
