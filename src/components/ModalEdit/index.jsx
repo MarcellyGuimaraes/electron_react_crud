@@ -27,7 +27,7 @@ const ModalEdit = ({
       setCpf('')
       onClose()
     } else {
-      console.log('Digite um cpf válido')
+      alert('Digite um cpf válido')
     }
   }
 
