@@ -5,9 +5,6 @@ const ModalAdd = ({ show, onClose, get, users }) => {
   const [nome, setNome] = useState('')
   const [cpf, setCpf] = useState('')
 
-  console.log('Nome: ', nome)
-  console.log('CPF: ', cpf)
-
   if (!show) {
     return null
   }

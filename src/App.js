@@ -3,10 +3,12 @@ import './App.css'
 import { deleteUser, editUser, getUser } from './assets/crud'
 import Header from './components/Header'
 import ModalAdd from './components/ModalAdd'
+import ModalEdit from './components/ModalEdit'
 
 function App() {
   const [users, setUsers] = useState()
   const [showAdd, setShowAdd] = useState(false)
+  const [showEdit, setShowEdit] = useState(false)
 
   useEffect(() => {
     getUser(setUsers)
@@ -61,7 +63,7 @@ function App() {
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       <button
                         onClick={
-                          () => console.log('Editar usuario')
+                          () => setShowEdit(true)
                           // editUser(user.id, setUsers, nome, cpf, users)
                         }
                       >
@@ -73,6 +75,15 @@ function App() {
                         Deletar
                       </button>
                     </td>
+                    <ModalEdit
+                      get={setUsers}
+                      show={showEdit}
+                      onClose={() => setShowEdit(false)}
+                      users={users}
+                      id={user.id}
+                      nomeInicial={user.nome}
+                      cpfInicial={user.cpf}
+                    />
                   </tr>
                 ))}
               </tbody>
