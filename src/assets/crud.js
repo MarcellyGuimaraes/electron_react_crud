@@ -2,18 +2,18 @@ import api from './api'
 
 export const getUser = (set) => {
   api
-    .get('/produtos')
+    .get('/usuarios')
     .then((response) => set(response.data))
     .catch((err) => {
       console.error('ops! ocorreu um erro (GetUsers): ' + err)
     })
 }
 
-export const addUser = (set, nome, descricao, users) => {
+export const addUser = (set, nome, cpf, users) => {
   api
-    .post('/produtos', {
+    .post('/usuarios', {
       nome,
-      descricao,
+      cpf,
     })
     .then((response) => {
       set([...users, response.data])
@@ -24,11 +24,11 @@ export const addUser = (set, nome, descricao, users) => {
     })
 }
 
-export const editUser = (id, set, nome, descricao, users) => {
+export const editUser = (id, set, nome, cpf, users) => {
   api
-    .put(`produtos/${id}`, {
+    .put(`usuarios/${id}`, {
       nome,
-      descricao,
+      cpf,
     })
     .then((response) => {
       set([...users, response.data])
@@ -39,12 +39,12 @@ export const editUser = (id, set, nome, descricao, users) => {
     })
 }
 
-export const deleteUser = (set, id) => {
+export const deleteUser = (set, id, users) => {
   api
-    .delete(`/produtos/${id}`)
+    .delete(`/usuarios/${id}`)
     .then(() => {
       alert('Post deleted!')
-      set(null)
+      set([...users])
       getUser(set)
     })
     .catch((err) => {

@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { addUser, deleteUser, editUser, getUser } from './assets/crud'
+import { deleteUser, editUser, getUser } from './assets/crud'
+import Header from './components/Header'
+import ModalAdd from './components/ModalAdd'
 
 function App() {
   const [users, setUsers] = useState()
-  const nome = 'Nome 1'
-  const descricao = 'Descricao 2'
-
-  const nomeEdited = 'Nome 1 Editada'
-  const descricaoEdited = 'Descricao 2 Editada'
+  const [showAdd, setShowAdd] = useState(false)
 
   useEffect(() => {
     getUser(setUsers)
@@ -23,41 +21,71 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        {users ? (
-          users.map((user, index) => (
-            <div key={index}>
-              <p>{user?.nome}</p>
-              <p>{user?.descricao}</p>
-
-              <button
-                onClick={() =>
-                  editUser(
-                    user?.id,
-                    setUsers,
-                    nomeEdited,
-                    descricaoEdited,
-                    users,
-                  )
-                }
-              >
-                Editar Post
-              </button>
-              <button onClick={() => deleteUser(setUsers, user?.id)}>
-                Deletar Post
-              </button>
-            </div>
-          ))
-        ) : (
-          <div className="App">
-            <header className="App-header">Carregando</header>
+    <div class="flex flex-col">
+      <Header openModal={() => setShowAdd(true)} />
+      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-4 inline-block min-w-full sm:px-6 lg:px-8">
+          <div class="overflow-hidden">
+            <table class="min-w-full text-center">
+              <thead class="border-b bg-gray-800">
+                <tr>
+                  <th
+                    scope="col"
+                    class="text-sm font-medium text-white px-6 py-4"
+                  >
+                    Nome
+                  </th>
+                  <th
+                    scope="col"
+                    class="text-sm font-medium text-white px-6 py-4"
+                  >
+                    Cpf
+                  </th>
+                  <th
+                    scope="col"
+                    class="text-sm font-medium text-white px-6 py-4"
+                  >
+                    Ações
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user, index) => (
+                  <tr class="bg-white border-b" key={index}>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      {user.nome}
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      {user.cpf}
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <button
+                        onClick={
+                          () => console.log('Editar usuario')
+                          // editUser(user.id, setUsers, nome, cpf, users)
+                        }
+                      >
+                        Editar
+                      </button>
+                      <button
+                        onClick={() => deleteUser(setUsers, user.id, users)}
+                      >
+                        Deletar
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        )}
-        <button onClick={() => addUser(setUsers, nome, descricao, users)}>
-          Create Post
-        </button>
-      </header>
+        </div>
+      </div>
+      <ModalAdd
+        get={setUsers}
+        show={showAdd}
+        onClose={() => setShowAdd(false)}
+        users={users}
+      />
     </div>
   )
 }
