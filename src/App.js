@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { deleteUser, editUser, getUser } from './assets/crud'
+import { deleteUser, getUser } from './assets/crud'
 import Header from './components/Header'
 import ModalAdd from './components/ModalAdd'
 import ModalEdit from './components/ModalEdit'
@@ -23,29 +23,29 @@ function App() {
   }
 
   return (
-    <div class="flex flex-col">
+    <div className="flex flex-col">
       <Header openModal={() => setShowAdd(true)} />
-      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="py-4 inline-block min-w-full sm:px-6 lg:px-8">
-          <div class="overflow-hidden">
-            <table class="min-w-full text-center">
-              <thead class="border-b bg-gray-800">
+      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div className="py-4 inline-block min-w-full sm:px-6 lg:px-8">
+          <div className="overflow-hidden">
+            <table className="min-w-full text-center">
+              <thead className="border-b bg-gray-800">
                 <tr>
                   <th
                     scope="col"
-                    class="text-sm font-medium text-white px-6 py-4"
+                    className="text-sm font-medium text-white px-6 py-4"
                   >
                     Nome
                   </th>
                   <th
                     scope="col"
-                    class="text-sm font-medium text-white px-6 py-4"
+                    className="text-sm font-medium text-white px-6 py-4"
                   >
                     Cpf
                   </th>
                   <th
                     scope="col"
-                    class="text-sm font-medium text-white px-6 py-4"
+                    className="text-sm font-medium text-white px-6 py-4"
                   >
                     Ações
                   </th>
@@ -53,14 +53,14 @@ function App() {
               </thead>
               <tbody>
                 {users.map((user, index) => (
-                  <tr class="bg-white border-b" key={index}>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <tr className="bg-white border-b" key={index}>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {user.nome}
                     </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       {user.cpf}
                     </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       <button
                         onClick={
                           () => setShowEdit(true)
