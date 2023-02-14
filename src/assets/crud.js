@@ -40,14 +40,19 @@ export const editUser = (id, set, nome, cpf, users) => {
 }
 
 export const deleteUser = (set, id, users) => {
-  api
-    .delete(`/usuarios/${id}`)
-    .then(() => {
-      alert('Post deleted!')
-      set([...users])
-      getUser(set)
-    })
-    .catch((err) => {
-      console.error('ops! ocorreu um erro (DeleteUser): ' + err)
-    })
+  // eslint-disable-next-line no-restricted-globals
+  if (confirm('Deseja realmente excluir este item?')) {
+    api
+      .delete(`/usuarios/${id}`)
+      .then(() => {
+        alert('Post deleted!')
+        set([...users])
+        getUser(set)
+      })
+      .catch((err) => {
+        console.error('ops! ocorreu um erro (DeleteUser): ' + err)
+      })
+  } else {
+    return null
+  }
 }
