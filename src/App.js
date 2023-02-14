@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import './App.css'
 import { deleteUser, getUser } from './assets/crud'
 import Header from './components/Header'
 import ModalAdd from './components/ModalAdd'
@@ -33,19 +32,19 @@ function App() {
                 <tr>
                   <th
                     scope="col"
-                    className="text-sm font-medium text-white px-6 py-4"
+                    className="text-md font-medium text-white px-6 py-4"
                   >
                     Nome
                   </th>
                   <th
                     scope="col"
-                    className="text-sm font-medium text-white px-6 py-4"
+                    className="text-md font-medium text-white px-6 py-4"
                   >
                     Cpf
                   </th>
                   <th
                     scope="col"
-                    className="text-sm font-medium text-white px-6 py-4"
+                    className="text-md font-medium text-white px-6 py-4"
                   >
                     Ações
                   </th>
@@ -54,14 +53,16 @@ function App() {
               <tbody>
                 {users.map((user, index) => (
                   <tr className="bg-white border-b" key={index}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-md font-medium text-gray-900">
                       {user.nome}
                     </td>
-                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    <td className="text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       {user.cpf}
                     </td>
-                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    <td className="text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       <button
+                        type="button"
+                        className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2"
                         onClick={
                           () => setShowEdit(true)
                           // editUser(user.id, setUsers, nome, cpf, users)
@@ -70,6 +71,7 @@ function App() {
                         Editar
                       </button>
                       <button
+                        className="text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2"
                         onClick={() => deleteUser(setUsers, user.id, users)}
                       >
                         Deletar
