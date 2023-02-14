@@ -26,7 +26,7 @@ export const addUser = (set, nome, cpf, users) => {
 
 export const editUser = (id, set, nome, cpf, users) => {
   api
-    .put(`/usuarios/${id}`, {
+    .put(`usuarios/${id}`, {
       nome,
       cpf,
     })

@@ -50,9 +50,9 @@ function App() {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user, index) => (
+                {users.map((user) => (
                   <LineTable
-                    key={index}
+                    key={user.id}
                     id={user.id}
                     nome={user.nome}
                     cpf={user.cpf}
